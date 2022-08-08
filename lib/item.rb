@@ -5,5 +5,4 @@ class Item
     @name = attributes[:name]
     @price = attributes[:price].delete_prefix('$').to_f
   end
-  
 end

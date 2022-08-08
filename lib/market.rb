@@ -72,4 +72,26 @@ class Market
     final_hash
   end
 
+  def sell(item, quantity)
+    return false if sum_of_item(item) < quantity
+      remaining_quantity = quantity
+      @vendors.each do |vendor|
+        if vendor.check_stock(item) != 0 && vendor.check_stock(item) > 0
+          if quantity > vendor.check_stock(item)
+            remaining_quantity = quantity - vendor.check_stock(item)
+            vendor.inventory[item] -= vendor.check_stock(item)
+          elsif remaining_quantity < vendor.check_stock(item)
+            vendor.inventory[item] -= remaining_quantity
+          end
+        elsif vendor.check_stock(item) >= quantity
+          vendor.inventory[item] -= quantity
+          return true
+        end
+      end
+    true
+  end
+
+
+
+
 end
