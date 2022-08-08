@@ -16,12 +16,15 @@ RSpec.describe do
 
   it 'can check its stock which is empty by default' do
     vendor = Vendor.new("Rocky Mountain Fresh")
+    item1 = Item.new({name: 'Peach', price: "$0.75"})
 
     expect(vendor.check_stock(item1)).to eq(0)
   end
 
   it 'can add to its stock and inventory' do
     vendor = Vendor.new("Rocky Mountain Fresh")
+    item1 = Item.new({name: 'Peach', price: "$0.75"})
+    item2 = Item.new({name: 'Tomato', price: '$0.50'})
 
     expect(vendor.check_stock(item1)).to eq(0)
     vendor.stock(item1, 30)
@@ -32,5 +35,5 @@ RSpec.describe do
     vendor.stock(item2, 12)
     expect(vendor.inventory).to eq({item1 => 55, item2 => 12})
   end
-  
+
 end
