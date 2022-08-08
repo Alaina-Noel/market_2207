@@ -164,5 +164,11 @@ RSpec.describe do
     expect(market.total_inventory).to eq(inventory_hash)
   end
 
+  it 'can tell the date that the market is created' do
+    market = Market.new("South Pearl Street Farmers Market")
+
+    expect(market.date).to eq("24/02/2020")
+  end
+
 
 end
