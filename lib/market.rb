@@ -26,4 +26,30 @@ class Market
     end.uniq.sort
   end
 
+  def list_items_sold_by_multiple_vendors
+    items = []
+    @vendors.each do |vendor|
+      vendor.inventory.each do |item, quantity|
+        items << item if vendors_that_sell(item).count > 1
+      end
+    end
+    items.uniq
+  end
+
+  def sum_of_item(item)
+    item_count = Hash.new(0)
+    @vendors.each do |vendor|
+      vendor.inventory.each do |item, quantity|
+        item_count[item] += quantity
+      end
+    end
+    item_count
+  end
+
+  def overstocked_items
+    list_items_sold_by_multiple_vendors.find_all do |item|
+      sum_of_item(item)[item] > 50
+    end
+  end
+
 end
