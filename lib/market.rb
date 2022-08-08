@@ -43,13 +43,32 @@ class Market
         item_count[item] += quantity
       end
     end
-    item_count
+    item_count[item]
   end
 
   def overstocked_items
     list_items_sold_by_multiple_vendors.find_all do |item|
-      sum_of_item(item)[item] > 50
+      sum_of_item(item) > 50
     end
+  end
+
+  def item_list
+    all_items = Hash.new{ |h, k| h[k] = Hash.new(0)}
+    @vendors.flat_map do |vendor|
+      vendor.inventory.map do |item, quantity|
+        all_items[item] = Hash.new(0)
+      end
+    end
+    all_items
+  end
+
+  def total_inventory
+    final_hash = item_list
+      item_list.each do |item, q_v_hash|
+      final_hash[item][:quantity] = sum_of_item(item)
+      final_hash[item][:vendors] = vendors_that_sell(item)
+    end
+    final_hash
   end
 
 end

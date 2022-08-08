@@ -123,7 +123,7 @@ RSpec.describe do
     expect(market.overstocked_items).to eq([item1])
   end
 
-  xit 'can list total inventory' do
+  it 'can list total inventory' do
     market = Market.new("South Pearl Street Farmers Market")
     vendor1 = Vendor.new("Rocky Mountain Fresh")
     item1 = Item.new({name: 'Peach', price: "$0.75"})
