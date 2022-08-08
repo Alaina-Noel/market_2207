@@ -1,6 +1,7 @@
 require './lib/item'
 require './lib/vendor'
 require './lib/market'
+require 'date'
 
 
 RSpec.describe do
@@ -167,6 +168,7 @@ RSpec.describe do
   it 'can tell the date that the market is created' do
     market = Market.new("South Pearl Street Farmers Market")
 
+    allow(market).to receive(:date).and_return(Date.parse("2020-02-24").strftime("%d/%m/%Y"))
     expect(market.date).to eq("24/02/2020")
   end
 
