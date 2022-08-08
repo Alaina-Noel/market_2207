@@ -3,7 +3,6 @@ require './lib/vendor'
 require './lib/market'
 require 'date'
 
-
 RSpec.describe do
   it 'exists' do
     market = Market.new("South Pearl Street Farmers Market")
@@ -198,7 +197,8 @@ RSpec.describe do
     expect(market.sell(item1, 40)).to eq(true)
     expect(vendor1.check_stock(item1)).to eq(0)
     expect(vendor3.check_stock(item1)).to eq(60)
+    
+    expect(market.sell(item1, 60)).to eq(true)
+    expect(vendor3.check_stock(item1)).to eq(0)
   end
-
-
 end

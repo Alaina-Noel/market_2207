@@ -11,7 +11,7 @@ class Vendor
   end
 
   def stock(item, quantity)
-    inventory[item] += quantity
+    @inventory[item] += quantity
   end
 
   def potential_revenue
@@ -19,6 +19,5 @@ class Vendor
       start += item.price * quantity
     end
   end
-
 
 end

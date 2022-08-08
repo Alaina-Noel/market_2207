@@ -64,12 +64,12 @@ class Market
   end
 
   def total_inventory
-    final_hash = item_list
-      item_list.each do |item, q_v_hash|
-      final_hash[item][:quantity] = sum_of_item(item)
-      final_hash[item][:vendors] = vendors_that_sell(item)
+    inventory_hash = item_list
+      item_list.each do |item, details_hash|
+      inventory_hash[item][:quantity] = sum_of_item(item)
+      inventory_hash[item][:vendors] = vendors_that_sell(item)
     end
-    final_hash
+    inventory_hash
   end
 
   def sell(item, quantity)
@@ -80,18 +80,12 @@ class Market
           if quantity > vendor.check_stock(item)
             remaining_quantity = quantity - vendor.check_stock(item)
             vendor.inventory[item] -= vendor.check_stock(item)
-          elsif remaining_quantity < vendor.check_stock(item)
+          elsif remaining_quantity <= vendor.check_stock(item)
             vendor.inventory[item] -= remaining_quantity
           end
-        elsif vendor.check_stock(item) >= quantity
-          vendor.inventory[item] -= quantity
-          return true
         end
       end
     true
   end
-
-
-
 
 end
